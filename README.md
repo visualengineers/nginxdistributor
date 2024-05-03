@@ -61,7 +61,7 @@ docker compose exec webserver nginx -s reload
 
 # Add a new Reverse Proxy Location
 
-You can add new locations in `nginx/conf/app.conf` by adding new sections such as:
+You can add new locations in `nginx/conf/sites/*.conf` by adding new files such as:
 
 ```nginx
 location /leac/ {
