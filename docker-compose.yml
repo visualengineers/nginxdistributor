@@ -9,8 +9,18 @@ services:
       - ./nginx/conf/:/etc/nginx/conf.d/:ro
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
+    # NEW: "default" keeps the existing behaviour, "proxy" lets nginx reach
+    # containers like mmmi-monitor by name without publishing their ports.
+    networks:
+      - default
+      - proxy
   certbot:
     image: certbot/certbot:latest
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
+
+# NEW: shared network, created once with `docker network create proxy`
+networks:
+  proxy:
+    external: true
